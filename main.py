@@ -1,17 +1,22 @@
 import os
 import requests
 
-url = os.environ["DISCORD_WEBHOOK_URL"]
+webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
+
+if not webhook_url:
+    raise RuntimeError(
+        "DISCORD_WEBHOOK_URL が設定されていません。GitHub Secretsを確認してください。"
+    )
 
 response = requests.post(
-    url,
+    webhook_url,
     json={
         "username": "dailyreport_bot",
-        "content": "🧪 dailyreport_bot 接続テスト成功！"
+        "content": "🧪 GitHub Actions → Discord 接続成功！"
     },
     timeout=30
 )
 
 response.raise_for_status()
 
-print("Discordへの送信に成功しました")
+print("Discordへの送信に成功しました！")
