@@ -24,5 +24,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           python main.py
